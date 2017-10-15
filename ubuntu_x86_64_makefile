@@ -6,7 +6,7 @@ USEDLIBS_OPTIONS = -lboost_system -lpthread
 LIBPATH = /usr/lib
 COMMON_SOURCES = src/chat_messages/*.cpp
 SERVER_SOURCES = src/chat_server.cpp src/chat_server_core/*.cpp
-CLIENT_SOURCES = src/chat_client.cpp src/chat_client_core/*.cpp
+CLIENT_SOURCES = src/chat_client.cpp src/chat_client_core/*.cpp src/chat_client_core/ui/*.cpp
 
 all: client server
 
