@@ -1,6 +1,7 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include "chat_client_core/ChatClient.h"
+#include "chat_client_core/ChatClientUI.h"
 
 int main(int argc, char **argv)
 {
@@ -12,7 +13,8 @@ int main(int argc, char **argv)
     try
     {
         boost::asio::io_service io_service;
-        ChatClient client(io_service, argv[1], argv[2]);
+        ChatClientUI client_ui(io_service);
+        ChatClient client(io_service, argv[1], argv[2], client_ui);
 
         io_service.run();
     }

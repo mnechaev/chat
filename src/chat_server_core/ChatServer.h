@@ -1,6 +1,7 @@
 #ifndef LEARN_BOOST_ASIO_CHATSERVER_H
 #define LEARN_BOOST_ASIO_CHATSERVER_H
 
+#include <iostream>
 #include <boost/asio.hpp>
 
 #include "../chat_messages/ChatMessage.h"

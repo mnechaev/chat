@@ -3,8 +3,8 @@
 
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/posix/stream_descriptor.hpp>
-#include "../chat_messages/PublicChatMessage.h"
-#include "../chat_messages/PrivateChatMessage.h"
+#include "../../chat_messages/PublicChatMessage.h"
+#include "../../chat_messages/PrivateChatMessage.h"
 
 class ChatClientOutput {
 public:

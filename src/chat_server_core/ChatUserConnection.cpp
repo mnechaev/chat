@@ -1,3 +1,4 @@
+#include <iostream>
 #include <boost/bind.hpp>
 
 #include "ChatUserConnection.h"
