@@ -2,7 +2,7 @@
 #define LEARN_BOOST_ASIO_CHARSERVERCONSOLE_H
 
 #include <boost/asio.hpp>
-#include "ChatServer.h"
+#include "../ChatServer.h"
 
 
 class ChatServerConsole {

@@ -3,16 +3,21 @@
 #include <sstream>
 #include <boost/asio.hpp>
 #include "chat_server_core/ChatServer.h"
-#include "chat_server_core/ChatServerConsole.h"
+//#include "chat_server_core/deprecated/ChatServerConsole.h"
 
-int main()
+int main(int argc, char ** argv)
 {
+    if (argc != 2) {
+        std::cerr << "Use: " << argv[0] << " <port>" << std::endl;
+        return 1;
+    }
+
     try
     {
         boost::asio::io_service io_service;
-        ChatServer server(io_service, 3101);
+        ChatServer server(io_service, atoi(argv[1]));
 
-        ChatServerConsole console(io_service, &server);
+//        ChatServerConsole console(io_service, &server);
 
         io_service.run();
 

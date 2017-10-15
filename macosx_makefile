@@ -10,7 +10,9 @@ CLIENT_SOURCES = src/chat_client.cpp src/chat_client_core/*.cpp
 
 all: client server
 
-server:
+init:
+	mkdir -p ./bin
+server: init
 	$(CC) $(PARAMS) $(SERVER_SOURCES) $(COMMON_SOURCES) -o $(OUTPUT_SERVER) $(USEDLIBS_OPTIONS) -L$(LIBPATH)
-client:
+client: init
 	$(CC) $(PARAMS) $(CLIENT_SOURCES) $(COMMON_SOURCES) -o $(OUTPUT_CLIENT) $(USEDLIBS_OPTIONS) -L$(LIBPATH)
