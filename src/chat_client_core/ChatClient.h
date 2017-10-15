@@ -26,8 +26,9 @@ private:
     void handle_connection_lost();
 
     void handle_connect(const boost::system::error_code& error);
-    void start_client_input_accept();
-    void handle_client_input_accept(const boost::system::error_code& error, std::size_t length);
+
+    void start_input_accept();
+    void handle_input_accept(const boost::system::error_code &error, std::size_t length);
 
     std::string sender_id();
     void send_data(std::string data);

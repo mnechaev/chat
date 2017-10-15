@@ -31,7 +31,7 @@ ChatClient::~ChatClient() {
 void ChatClient::handle_connect(const boost::system::error_code &error) {
     if (!error) {
         client_processor_.on_connected(this);
-        start_client_input_accept();
+        start_input_accept();
 
     } else {
         client_processor_.on_not_connected();
@@ -39,10 +39,10 @@ void ChatClient::handle_connect(const boost::system::error_code &error) {
     }
 }
 
-void ChatClient::start_client_input_accept() {
+void ChatClient::start_input_accept() {
     boost::asio::async_read_until(socket_, socket_input_buffer_, '\n',
                                   boost::bind(
-                                          &ChatClient::handle_client_input_accept,
+                                          &ChatClient::handle_input_accept,
                                           this,
                                           boost::asio::placeholders::error,
                                           boost::asio::placeholders::bytes_transferred
@@ -51,7 +51,7 @@ void ChatClient::start_client_input_accept() {
     );
 }
 
-void ChatClient::handle_client_input_accept(const boost::system::error_code &error, std::size_t length) {
+void ChatClient::handle_input_accept(const boost::system::error_code &error, std::size_t length) {
     if (error) {
         handle_connection_lost();
 
@@ -72,7 +72,7 @@ void ChatClient::handle_client_input_accept(const boost::system::error_code &err
 
     }
 
-    start_client_input_accept();
+    start_input_accept();
 }
 
 void ChatClient::send_message(std::string message_body) {
