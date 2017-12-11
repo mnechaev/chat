@@ -1,11 +1,14 @@
 #include "ChatMessage.h"
 #include "chat_message_types.h"
+#include "../common/log.h"
 
 std::string const ChatMessage::prefix = "MSG";
 ChatMessage::ChatMessage() {
+    Log::on_instance_create("ChatMessage");
 }
 
 ChatMessage::~ChatMessage() {
+    Log::on_instance_destroy("ChatMessage");
 }
 
 int ChatMessage::type() const { return ChatMessageTypes::ABSTRACT_MESSAGE; }

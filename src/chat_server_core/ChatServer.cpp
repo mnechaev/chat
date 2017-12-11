@@ -4,17 +4,21 @@
 #include "../chat_messages/chat_message_types.h"
 #include "../chat_messages/PrivateChatMessage.h"
 #include "../chat_messages/UserListMessage.h"
+#include "../common/log.h"
 
 
 ChatServer::ChatServer(boost::asio::io_service& io_service, int port):
         IChatServerConnectionProcessor(),
         acceptor_(io_service, tcp::endpoint(tcp::v4(), port))
 {
+    Log::on_instance_create("ChatServer");
     running_ = true;
     start_accept();
 }
 
-ChatServer::~ChatServer() {}
+ChatServer::~ChatServer() {
+    Log::on_instance_destroy("ChatServer");
+}
 
 void ChatServer::send_to_all(ChatMessage * message) {
     for(std::vector<ChatUserConnection::pointer>::iterator it = connections.begin(); it != connections.end(); ++it) {

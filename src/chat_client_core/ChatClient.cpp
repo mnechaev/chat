@@ -3,12 +3,13 @@
 #include <sstream>
 #include "ChatClient.h"
 #include "../chat_messages/ChatMessageFactory.h"
+#include "../common/log.h"
 
 ChatClient::ChatClient(boost::asio::io_service &io_service, std::string server, std::string port, IChatClientProcessor & client_processor):
         socket_(io_service),
         client_processor_(client_processor)
 {
-
+    Log::on_instance_create("ChatClient");
     boost::asio::ip::tcp::resolver resolver(io_service);
     boost::asio::ip::tcp::resolver::query query(server, port);
     boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
@@ -26,6 +27,7 @@ ChatClient::ChatClient(boost::asio::io_service &io_service, std::string server, 
 
 
 ChatClient::~ChatClient() {
+    Log::on_instance_destroy("ChatClient");
 }
 
 void ChatClient::handle_connect(const boost::system::error_code &error) {
@@ -71,6 +73,8 @@ void ChatClient::handle_input_accept(const boost::system::error_code &error, std
         client_processor_.on_data_received(result_line);
 
     }
+
+    delete message;
 
     start_input_accept();
 }

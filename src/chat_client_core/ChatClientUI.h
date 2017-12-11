@@ -9,6 +9,7 @@
 class ChatClientUI : public IChatClientProcessor {
 public:
     ChatClientUI(boost::asio::io_service &io_service);
+    ~ChatClientUI();
 
 private:
     enum { max_user_input = 512 };

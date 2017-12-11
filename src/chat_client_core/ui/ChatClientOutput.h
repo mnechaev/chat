@@ -18,6 +18,7 @@ public:
     void lock();
     void unlock();
     bool is_locked();
+    ~ChatClientOutput();
 private:
     boost::asio::posix::stream_descriptor output_;
 

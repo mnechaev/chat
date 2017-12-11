@@ -19,6 +19,6 @@ add_executable(chat_server ${SOURCE_FILES_COMMON} ${SOURCE_FILES_SERVER})
 TARGET_LINK_LIBRARIES(chat_server ${USED_LIBS})
 
 
-set(SOURCE_FILES_CLIENT src/chat_client.cpp src/chat_client_core/ChatClient.cpp src/chat_client_core/ChatClient.h src/chat_client_core/ui/ChatClientOutput.cpp src/chat_client_core/ui/ChatClientOutput.h src/chat_client_core/IChatClientProcessor.h src/chat_client_core/ChatClientUI.cpp src/chat_client_core/ChatClientUI.h)
+set(SOURCE_FILES_CLIENT src/chat_client.cpp src/chat_client_core/ChatClient.cpp src/chat_client_core/ChatClient.h src/chat_client_core/ui/ChatClientOutput.cpp src/chat_client_core/ui/ChatClientOutput.h src/chat_client_core/IChatClientProcessor.h src/chat_client_core/ChatClientUI.cpp src/chat_client_core/ChatClientUI.h src/common/log.h)
 add_executable(chat_client ${SOURCE_FILES_COMMON} ${SOURCE_FILES_CLIENT})
 TARGET_LINK_LIBRARIES(chat_client ${USED_LIBS})

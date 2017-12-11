@@ -3,6 +3,7 @@
 
 #include "ChatUserConnection.h"
 #include "../chat_messages/ChatMessageFactory.h"
+#include "../common/log.h"
 
 ChatUserConnection::pointer ChatUserConnection::create(IChatServerConnectionProcessor* server, boost::asio::io_service& io_service)
 {
@@ -41,7 +42,7 @@ void ChatUserConnection::send_message(ChatMessage * message) {
 }
 
 ChatUserConnection::~ChatUserConnection() {
-    std::cout << "Destroy ChatUserConnection" << std::endl;
+    Log::on_instance_destroy("ChatUserConnection");
 }
 
 std::string ChatUserConnection::client_id() const {
@@ -49,7 +50,7 @@ std::string ChatUserConnection::client_id() const {
 }
 
 ChatUserConnection::ChatUserConnection(IChatServerConnectionProcessor* connection_processor, boost::asio::io_service& io_service):connection_processor_(connection_processor),socket_(io_service) {
-    std::cout << "Create ChatUserConnection" << std::endl;
+    Log::on_instance_create("ChatUserConnection");
 }
 
 

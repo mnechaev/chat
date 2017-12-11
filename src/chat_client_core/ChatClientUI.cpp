@@ -1,10 +1,12 @@
 #include <boost/bind.hpp>
 #include "ChatClientUI.h"
+#include "../common/log.h"
 
 ChatClientUI::ChatClientUI(boost::asio::io_service &io_service):IChatClientProcessor(),
         user_input_(io_service, ::dup(STDIN_FILENO)),
         user_input_buffer_(ChatClientUI::max_user_input)
 {
+    Log::on_instance_create("ChatClientUI");
     output_ = new ChatClientOutput(io_service);
 
 }
@@ -127,4 +129,9 @@ void ChatClientUI::handle_user_list(UserListMessage *message) {
 
 void ChatClientUI::on_data_received(std::string data) {
     output_->client_output("Server: " + data + "\n");
+}
+
+ChatClientUI::~ChatClientUI() {
+    delete output_;
+    Log::on_instance_destroy("ChatClientUI");
 }

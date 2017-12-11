@@ -1,9 +1,11 @@
 #include <boost/asio/write.hpp>
 #include "ChatClientOutput.h"
+#include "../../common/log.h"
 
 ChatClientOutput::ChatClientOutput(boost::asio::io_service &io_service):
         output_(io_service, ::dup(STDOUT_FILENO)), ui_locked_(false)
 {
+    Log::on_instance_create("ChatClientOutput");
 }
 
 void ChatClientOutput::client_output(std::string const &msg) {
@@ -65,4 +67,8 @@ std::string ChatClientOutput::time_to_str(time_t time) {
     std::string time_str = std::string(ctime(&time));
     time_str = time_str.substr(0, time_str.length() - 1);
     return time_str;
+}
+
+ChatClientOutput::~ChatClientOutput() {
+    Log::on_instance_destroy("ChatClientOutput");
 }
