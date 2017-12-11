@@ -28,8 +28,8 @@ private:
     void client_output_impl(std::string const &msg);
     void bell();
 
-    void render_public_message(ChatMessage::pointer message);
-    void render_private_message(ChatMessage::pointer message);
+    void render_public_message(const PublicChatMessage &message);
+    void render_private_message(const PrivateChatMessage &message);
 
     std::string time_to_str(time_t time);
 };

@@ -111,21 +111,19 @@ void ChatClientUI::on_connection_lost() {
 }
 
 void ChatClientUI::on_message_received(ChatMessage::pointer message) {
-    if (HumanChatMessage *human_message = dynamic_cast<HumanChatMessage *>(message.get())) {
+    if (dynamic_cast<HumanChatMessage *>(message.get())) {
         output_->render_message(message);
 
     } else if (UserListMessage *user_list_message = dynamic_cast<UserListMessage *>(message.get())) {
-        handle_user_list(message);
+        handle_user_list(*user_list_message);
     }
 
 }
 
-void ChatClientUI::handle_user_list(ChatMessage::pointer message) {
-    UserListMessage *user_list_message = dynamic_cast<UserListMessage *>(message.get());
-
-    output_->client_output(std::string("Users (") + std::to_string(user_list_message->user_list().size()) + "):\n");
-    for (int i = 0; i < user_list_message->user_list().size(); i++) {
-        output_->client_output("\t" + std::to_string(i + 1) + " " + user_list_message->user_list()[i] + "\n");
+void ChatClientUI::handle_user_list(const UserListMessage &message) {
+    output_->client_output(std::string("Users (") + std::to_string(message.user_list().size()) + "):\n");
+    for (int i = 0; i < message.user_list().size(); i++) {
+        output_->client_output("\t" + std::to_string(i + 1) + " " + message.user_list()[i] + "\n");
     }
 }
 

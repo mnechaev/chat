@@ -48,21 +48,19 @@ void ChatClientOutput::bell() {
 }
 
 void ChatClientOutput::render_message(ChatMessage::pointer message) {
-    if (dynamic_cast<PublicChatMessage *>(message.get())) {
-        render_public_message(message);
-    } else if (dynamic_cast<PrivateChatMessage *>(message.get())) {
-        render_private_message(message);
+    if (PublicChatMessage *public_message = dynamic_cast<PublicChatMessage *>(message.get())) {
+        render_public_message(*public_message);
+    } else if (PrivateChatMessage *private_message = dynamic_cast<PrivateChatMessage *>(message.get())) {
+        render_private_message(*private_message);
     }
 }
 
-void ChatClientOutput::render_public_message(ChatMessage::pointer message) {
-    PublicChatMessage * public_chat_message = dynamic_cast<PublicChatMessage *>(message.get());
-    client_output("[" + time_to_str(public_chat_message->get_time()) + "] " + public_chat_message->sender_id() + ": " + public_chat_message->body() + "\n");
+void ChatClientOutput::render_public_message(const PublicChatMessage &message) {
+    client_output("[" + time_to_str(message.get_time()) + "] " + message.sender_id() + ": " + message.body() + "\n");
 }
 
-void ChatClientOutput::render_private_message(ChatMessage::pointer message) {
-    PrivateChatMessage * private_chat_message = dynamic_cast<PrivateChatMessage *>(message.get());
-    client_output("[" + time_to_str(private_chat_message->get_time()) + "] " + private_chat_message->sender_id() + " <private>: " + private_chat_message->body() + "\n");
+void ChatClientOutput::render_private_message(const PrivateChatMessage &message) {
+    client_output("[" + time_to_str(message.get_time()) + "] " + message.sender_id() + " <private>: " + message.body() + "\n");
 }
 
 std::string ChatClientOutput::time_to_str(time_t time) {

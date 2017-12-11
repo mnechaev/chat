@@ -26,7 +26,7 @@ private:
     void on_data_received(std::string data);
     void on_message_received(ChatMessage::pointer message);
 
-    void handle_user_list(ChatMessage::pointer message);
+    void handle_user_list(const UserListMessage &message);
 
     void start_user_input_accept();
     void handle_user_input_accept(const boost::system::error_code &error, std::size_t length);
