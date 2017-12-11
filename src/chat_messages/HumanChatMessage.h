@@ -26,7 +26,7 @@ private:
 class HumanChatMessageParser : public ChatMessageParser {
 public:
     HumanChatMessageParser();
-    ChatMessage* parse(std::istringstream &message_stream);
+    ChatMessage::pointer parse(std::istringstream &message_stream);
 
 protected:
     std::string sender_id;

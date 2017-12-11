@@ -13,16 +13,16 @@
 class ChatMessageFactory {
 public:
 
-    static ChatMessageParser* factory_parser(int type) {
-        if (type == ChatMessageTypes::HUMAN_MESSAGE) return new HumanChatMessageParser();
-        if (type == ChatMessageTypes::PUBLIC_MESSAGE) return new PublicChatMessageParser();
-        if (type == ChatMessageTypes::PRIVATE_MESSAGE) return new PrivateChatMessageParser();
-        if (type == ChatMessageTypes::USER_LIST_MESSAGE) return new UserListMessageParser();
+    static ChatMessageParser::pointer factory_parser(int type) {
+        if (type == ChatMessageTypes::HUMAN_MESSAGE) return ChatMessageParser::pointer(new HumanChatMessageParser());
+        if (type == ChatMessageTypes::PUBLIC_MESSAGE) return ChatMessageParser::pointer(new PublicChatMessageParser());
+        if (type == ChatMessageTypes::PRIVATE_MESSAGE) return ChatMessageParser::pointer(new PrivateChatMessageParser());
+        if (type == ChatMessageTypes::USER_LIST_MESSAGE) return ChatMessageParser::pointer(new UserListMessageParser());
 
-        return new ChatMessageParser();
+        return ChatMessageParser::pointer(new ChatMessageParser());
     }
 
-    static ChatMessage* parse(std::string message) {
+    static ChatMessage::pointer parse(std::string message) {
         std::istringstream iss(message);
 
         std::string prefix_data;
@@ -41,10 +41,8 @@ public:
 
         iss.get();
 
-        ChatMessageParser* parser = factory_parser(msg_type_data);
-        ChatMessage* chat_message = parser->parse(iss);
-
-        delete parser;
+        ChatMessageParser::pointer parser = factory_parser(msg_type_data);
+        ChatMessage::pointer chat_message = parser->parse(iss);
 
         return chat_message;
     }

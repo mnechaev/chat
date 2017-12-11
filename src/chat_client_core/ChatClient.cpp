@@ -64,7 +64,7 @@ void ChatClient::handle_input_accept(const boost::system::error_code &error, std
     std::string result_line;
     std::getline(is, result_line);
 
-    ChatMessage* message = ChatMessageFactory::parse(result_line);
+    ChatMessage::pointer message = ChatMessageFactory::parse(result_line);
 
     if (message != 0) {
         client_processor_.on_message_received(message);
@@ -73,8 +73,6 @@ void ChatClient::handle_input_accept(const boost::system::error_code &error, std
         client_processor_.on_data_received(result_line);
 
     }
-
-    delete message;
 
     start_input_accept();
 }

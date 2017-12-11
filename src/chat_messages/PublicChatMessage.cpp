@@ -17,10 +17,10 @@ std::string PublicChatMessage::body() const {
 
 PublicChatMessageParser::PublicChatMessageParser() : HumanChatMessageParser() {}
 
-ChatMessage *PublicChatMessageParser::parse(std::istringstream &message_stream) {
+ChatMessage::pointer PublicChatMessageParser::parse(std::istringstream &message_stream) {
     if (!process_parsing(message_stream)) return 0;
 
-    return new PublicChatMessage(sender_id, time, body);
+    return ChatMessage::pointer(new PublicChatMessage(sender_id, time, body));
 }
 
 bool PublicChatMessageParser::process_parsing(std::istringstream &message_stream) {

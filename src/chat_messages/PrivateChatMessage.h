@@ -22,7 +22,7 @@ private:
 class PrivateChatMessageParser : public HumanChatMessageParser {
 public:
     PrivateChatMessageParser();
-    ChatMessage* parse(std::istringstream &message_stream);
+    ChatMessage::pointer parse(std::istringstream &message_stream);
 
 protected:
     std::string body;

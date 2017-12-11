@@ -1,5 +1,6 @@
 #ifndef LEARN_BOOST_ASIO_CHATUSERCONNECTION_H
 #define LEARN_BOOST_ASIO_CHATUSERCONNECTION_H
+class ChatUserConnection;
 
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
@@ -18,7 +19,7 @@ public:
     ~ChatUserConnection();
 
     void start();
-    void send_message(ChatMessage * message);
+    void send_message(ChatMessage::pointer message);
 
     std::string client_id() const;
     tcp::socket& socket();

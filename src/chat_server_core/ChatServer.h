@@ -14,11 +14,11 @@ public:
     ChatServer(boost::asio::io_service& io_service, int port);
     ~ChatServer();
 
-    void send_to_all(ChatMessage* message);
-    void send_to_single(std::string client_id, ChatMessage* message);
+    void send_to_all(ChatMessage::pointer message);
+    void send_to_single(std::string client_id, ChatMessage::pointer message);
 
-    void on_connection_lost(ChatUserConnection* connection);
-    void on_server_chat_message(ChatUserConnection* connection, ChatMessage* message);
+    void on_connection_lost(ChatUserConnection::pointer connection);
+    void on_server_chat_message(ChatUserConnection::pointer connection, ChatMessage::pointer message);
 
     void stop();
     void list();

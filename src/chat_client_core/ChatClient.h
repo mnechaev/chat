@@ -1,11 +1,12 @@
 #ifndef LEARN_BOOST_ASIO_CHATCLIENT_H
 #define LEARN_BOOST_ASIO_CHATCLIENT_H
 
+class ChatClient;
+
 #include <boost/asio.hpp>
 #include "ui/ChatClientOutput.h"
 #include "../chat_messages/UserListMessage.h"
 
-class IChatClientProcessor;
 #include "IChatClientProcessor.h"
 
 class ChatClient {

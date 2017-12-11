@@ -19,10 +19,10 @@ std::string PrivateChatMessage::body() const {
 
 PrivateChatMessageParser::PrivateChatMessageParser() : HumanChatMessageParser() {}
 
-ChatMessage *PrivateChatMessageParser::parse(std::istringstream &message_stream) {
+ChatMessage::pointer PrivateChatMessageParser::parse(std::istringstream &message_stream) {
     if (!process_parsing(message_stream)) return 0;
 
-    return new PrivateChatMessage(sender_id, time, receiver_id, body);
+    return ChatMessage::pointer(new PrivateChatMessage(sender_id, time, receiver_id, body));
 }
 
 bool PrivateChatMessageParser::process_parsing(std::istringstream &message_stream) {

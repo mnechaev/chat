@@ -26,9 +26,9 @@ ChatMessageParser::ChatMessageParser() {
 ChatMessageParser::~ChatMessageParser() {
 }
 
-ChatMessage *ChatMessageParser::parse(std::istringstream &message_stream) {
+ChatMessage::pointer ChatMessageParser::parse(std::istringstream &message_stream) {
     if (!process_parsing(message_stream)) return 0;
-    return new ChatMessage();
+    return ChatMessage::pointer(new ChatMessage());
 }
 
 bool ChatMessageParser::process_parsing(std::istringstream &message_stream) {

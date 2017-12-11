@@ -37,7 +37,7 @@ void ChatUserConnection::wait_read() {
     );
 }
 
-void ChatUserConnection::send_message(ChatMessage * message) {
+void ChatUserConnection::send_message(ChatMessage::pointer message) {
     boost::asio::write(socket_, boost::asio::buffer(message->to_string() + '\n'));
 }
 
@@ -60,7 +60,7 @@ void ChatUserConnection::handle_read(const boost::system::error_code& error,
     if (error) {
         if (error == boost::asio::error::eof || error == boost::asio::error::connection_reset) {
             std::cout << "Connection lost: " << client_id() << std::endl;
-            connection_processor_->on_connection_lost(this);
+            connection_processor_->on_connection_lost(shared_from_this());
         }
         return;
     }
@@ -68,11 +68,10 @@ void ChatUserConnection::handle_read(const boost::system::error_code& error,
     std::istream is(&buff);
     std::string result_line;
     std::getline(is, result_line);
-    ChatMessage* message = ChatMessageFactory::parse(result_line);
+    ChatMessage::pointer message = ChatMessageFactory::parse(result_line);
 
     if (message != 0) {
-        connection_processor_->on_server_chat_message(this, message);
-        delete message;
+        connection_processor_->on_server_chat_message(shared_from_this(), message);
     } else {
     }
 

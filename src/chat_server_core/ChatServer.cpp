@@ -20,16 +20,16 @@ ChatServer::~ChatServer() {
     Log::on_instance_destroy("ChatServer");
 }
 
-void ChatServer::send_to_all(ChatMessage * message) {
+void ChatServer::send_to_all(ChatMessage::pointer message) {
     for(std::vector<ChatUserConnection::pointer>::iterator it = connections.begin(); it != connections.end(); ++it) {
         it.base()->get()->send_message(message);
     }
 }
 
 
-void ChatServer::send_to_single(std::string client_id, ChatMessage * message) {
-    for(std::vector<ChatUserConnection::pointer>::iterator it = connections.begin(); it != connections.end(); ++it) {
-        ChatUserConnection *user_connection = it.base()->get();
+void ChatServer::send_to_single(std::string client_id, ChatMessage::pointer message) {
+    for(auto it = connections.begin(); it != connections.end(); ++it) {
+        ChatUserConnection::pointer user_connection = it.base()->get()->shared_from_this();
         if (user_connection->client_id() == client_id) {
             user_connection->send_message(message);
         }
@@ -63,8 +63,8 @@ void ChatServer::handle_accept(ChatUserConnection::pointer new_connection,  cons
 }
 
 
-void ChatServer::on_server_chat_message(ChatUserConnection *connection, ChatMessage *message) {
-    HumanChatMessage *human_message = dynamic_cast<HumanChatMessage *>(message);
+void ChatServer::on_server_chat_message(ChatUserConnection::pointer connection, ChatMessage::pointer message) {
+    HumanChatMessage *human_message = dynamic_cast<HumanChatMessage *>(message.get());
     if (human_message != 0) {
         human_message->update_time(time(0));
     }
@@ -72,13 +72,13 @@ void ChatServer::on_server_chat_message(ChatUserConnection *connection, ChatMess
     if (message->type() == ChatMessageTypes::PUBLIC_MESSAGE) {
         send_to_all(message);
     } else if (message->type() == ChatMessageTypes::PRIVATE_MESSAGE) {
-        send_to_single(((PrivateChatMessage*)message)->receiver_id(), message);
+        send_to_single(((PrivateChatMessage*)message.get())->receiver_id(), message);
     }
 }
 
-void ChatServer::on_connection_lost(ChatUserConnection* connection) {
+void ChatServer::on_connection_lost(ChatUserConnection::pointer connection) {
     for(std::vector<ChatUserConnection::pointer>::iterator it = connections.begin(); it != connections.end(); ++it) {
-        if (it.base()->get() == connection) {
+        if (it.base()->get() == connection.get()) {
             connections.erase(it);
             break;
         }
@@ -111,6 +111,6 @@ void ChatServer::dispatch_user_list() {
         user_list.push_back(it.base()->get()->client_id());
     }
 
-    UserListMessage user_list_message(user_list);
-    send_to_all(&user_list_message);
+    UserListMessage::pointer user_list_message(new UserListMessage(user_list));
+    send_to_all(user_list_message);
 }

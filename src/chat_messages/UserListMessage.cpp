@@ -22,10 +22,10 @@ std::vector<std::string> UserListMessage::user_list() const {
 UserListMessageParser::UserListMessageParser():ChatMessageParser() {
 }
 
-ChatMessage *UserListMessageParser::parse(std::istringstream &message_stream) {
+ChatMessage::pointer UserListMessageParser::parse(std::istringstream &message_stream) {
     if (!process_parsing(message_stream)) return 0;
 
-    return new UserListMessage(user_list);
+    return ChatMessage::pointer(new UserListMessage(user_list));
 }
 
 bool UserListMessageParser::process_parsing(std::istringstream &message_stream) {

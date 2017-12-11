@@ -25,10 +25,10 @@ std::string HumanChatMessage::sender_id() const {
 HumanChatMessageParser::HumanChatMessageParser() : ChatMessageParser() {}
 
 
-ChatMessage *HumanChatMessageParser::parse(std::istringstream &message_stream) {
+ChatMessage::pointer HumanChatMessageParser::parse(std::istringstream &message_stream) {
     if (!process_parsing(message_stream)) return 0;
 
-    return new HumanChatMessage(sender_id, time);
+    return ChatMessage::pointer(new HumanChatMessage(sender_id, time));
 }
 
 bool HumanChatMessageParser::process_parsing(std::istringstream &message_stream) {

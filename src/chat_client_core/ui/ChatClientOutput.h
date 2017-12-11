@@ -13,7 +13,7 @@ public:
     void client_output(std::string const &msg);
     void system_output(std::string const &msg);
 
-    void render_message(HumanChatMessage *message);
+    void render_message(ChatMessage::pointer message);
 
     void lock();
     void unlock();
@@ -28,8 +28,8 @@ private:
     void client_output_impl(std::string const &msg);
     void bell();
 
-    void render_public_message(PublicChatMessage * message);
-    void render_private_message(PrivateChatMessage * message);
+    void render_public_message(ChatMessage::pointer message);
+    void render_private_message(ChatMessage::pointer message);
 
     std::string time_to_str(time_t time);
 };

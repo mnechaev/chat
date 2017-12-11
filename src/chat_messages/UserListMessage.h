@@ -19,7 +19,7 @@ private:
 class UserListMessageParser : public ChatMessageParser {
 public:
     UserListMessageParser();
-    ChatMessage* parse(std::istringstream &message_stream);
+    ChatMessage::pointer parse(std::istringstream &message_stream);
 
 protected:
     std::vector<std::string> user_list;
