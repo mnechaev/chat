@@ -5,7 +5,8 @@
 #include "../chat_messages/ChatMessageFactory.h"
 #include "../common/log.h"
 
-ChatClient::ChatClient(boost::asio::io_service &io_service, std::string server, std::string port, IChatClientProcessor & client_processor):
+ChatClient::ChatClient(boost::asio::io_service &io_service, const std::string &server, const std::string &port,
+                       IChatClientProcessor &client_processor):
         socket_(io_service),
         client_processor_(client_processor)
 {
@@ -66,7 +67,7 @@ void ChatClient::handle_input_accept(const boost::system::error_code &error, std
 
     ChatMessage::pointer message = ChatMessageFactory::parse(result_line);
 
-    if (message != 0) {
+    if (message != nullptr) {
         client_processor_.on_message_received(message);
 
     } else {
@@ -77,17 +78,17 @@ void ChatClient::handle_input_accept(const boost::system::error_code &error, std
     start_input_accept();
 }
 
-void ChatClient::send_message(std::string message_body) {
+void ChatClient::send_message(const std::string &message_body) {
     PublicChatMessage message(sender_id(), time(0), message_body);
     send_data(message.to_string());
 }
 
-void ChatClient::send_private_message(std::string client, std::string message_body) {
+void ChatClient::send_private_message(const std::string &client, const std::string &message_body) {
     PrivateChatMessage message(sender_id(), time(0), client, message_body);
     send_data(message.to_string());
 }
 
-void ChatClient::send_data(std::string data) {
+void ChatClient::send_data(const std::string &data) {
     boost::asio::write(socket_, boost::asio::buffer(data + '\n'));
 }
 

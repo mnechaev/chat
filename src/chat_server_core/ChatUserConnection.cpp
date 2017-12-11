@@ -70,7 +70,7 @@ void ChatUserConnection::handle_read(const boost::system::error_code& error,
     std::getline(is, result_line);
     ChatMessage::pointer message = ChatMessageFactory::parse(result_line);
 
-    if (message != 0) {
+    if (message != nullptr) {
         connection_processor_->on_server_chat_message(shared_from_this(), message);
     } else {
     }

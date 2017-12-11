@@ -11,11 +11,12 @@ class ChatClient;
 
 class ChatClient {
 public:
-    ChatClient(boost::asio::io_service& io_service, std::string server, std::string port, IChatClientProcessor & client_processor);
+    ChatClient(boost::asio::io_service &io_service, const std::string &server, const std::string &port,
+               IChatClientProcessor &client_processor);
     ~ChatClient();
 
-    void send_message(std::string message_body);
-    void send_private_message(std::string client, std::string message_body);
+    void send_message(const std::string &message_body);
+    void send_private_message(const std::string &client, const std::string &message_body);
 
     void close();
 private:
@@ -32,7 +33,7 @@ private:
     void handle_input_accept(const boost::system::error_code &error, std::size_t length);
 
     std::string sender_id();
-    void send_data(std::string data);
+    void send_data(const std::string &data);
 };
 
 

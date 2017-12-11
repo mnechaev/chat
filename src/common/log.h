@@ -6,10 +6,10 @@
 
 class Log {
 public:
-    void static on_instance_create(const std::string name) {
+    void static on_instance_create(const std::string &name) {
         debug("+ Create " + name);
     }
-    void static on_instance_destroy(const std::string name) {
+    void static on_instance_destroy(const std::string &name) {
         debug("- Destroy " + name);
     }
 

@@ -7,7 +7,7 @@
 class PublicChatMessage : public HumanChatMessage {
 public:
     typedef boost::shared_ptr<PublicChatMessage> pointer;
-    PublicChatMessage(std::string sender_id, time_t time, std::string body);
+    PublicChatMessage(const std::string &sender_id, time_t time, const std::string &body);
 
     int type() const;
     std::string to_string() const;

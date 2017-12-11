@@ -15,7 +15,7 @@ public:
     ~ChatServer();
 
     void send_to_all(ChatMessage::pointer message);
-    void send_to_single(std::string client_id, ChatMessage::pointer message);
+    void send_to_single(const std::string &client_id, ChatMessage::pointer message);
 
     void on_connection_lost(ChatUserConnection::pointer connection);
     void on_server_chat_message(ChatUserConnection::pointer connection, ChatMessage::pointer message);

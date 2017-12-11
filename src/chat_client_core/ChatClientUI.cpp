@@ -67,7 +67,7 @@ void ChatClientUI::handle_user_input_accept(const boost::system::error_code &err
 
 }
 
-void ChatClientUI::process_user_command(std::string command) {
+void ChatClientUI::process_user_command(const std::string &command) {
     std::istringstream iss(command);
     std::string cmd;
     iss >> cmd;
@@ -127,7 +127,7 @@ void ChatClientUI::handle_user_list(const UserListMessage &message) {
     }
 }
 
-void ChatClientUI::on_data_received(std::string data) {
+void ChatClientUI::on_data_received(const std::string &data) {
     output_->client_output("Server: " + data + "\n");
 }
 

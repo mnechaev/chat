@@ -2,7 +2,8 @@
 #include "PrivateChatMessage.h"
 #include "chat_message_types.h"
 
-PrivateChatMessage::PrivateChatMessage(std::string sender_id, time_t time, std::string receiver_id, std::string body):HumanChatMessage(sender_id, time), receiver_id_(receiver_id), body_(body) {}
+PrivateChatMessage::PrivateChatMessage(const std::string &sender_id, time_t time, const std::string &receiver_id,
+                                       const std::string &body): HumanChatMessage(sender_id, time), receiver_id_(receiver_id), body_(body) {}
 
 int PrivateChatMessage::type() const { return ChatMessageTypes::PRIVATE_MESSAGE; }
 
@@ -20,7 +21,7 @@ std::string PrivateChatMessage::body() const {
 PrivateChatMessageParser::PrivateChatMessageParser() : HumanChatMessageParser() {}
 
 ChatMessage::pointer PrivateChatMessageParser::parse(std::istringstream &message_stream) {
-    if (!process_parsing(message_stream)) return 0;
+    if (!process_parsing(message_stream)) return nullptr;
 
     return ChatMessage::pointer(new PrivateChatMessage(sender_id, time, receiver_id, body));
 }

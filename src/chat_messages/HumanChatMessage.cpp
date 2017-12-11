@@ -2,7 +2,7 @@
 #include "HumanChatMessage.h"
 #include "chat_message_types.h"
 
-HumanChatMessage::HumanChatMessage(std::string sender_id, time_t time):ChatMessage(), sender_id_(sender_id), time_(time) {}
+HumanChatMessage::HumanChatMessage(const std::string &sender_id, time_t time): ChatMessage(), sender_id_(sender_id), time_(time) {}
 int HumanChatMessage::type() const { return ChatMessageTypes::HUMAN_MESSAGE; }
 
 std::string HumanChatMessage::to_string() const {
@@ -26,7 +26,7 @@ HumanChatMessageParser::HumanChatMessageParser() : ChatMessageParser() {}
 
 
 ChatMessage::pointer HumanChatMessageParser::parse(std::istringstream &message_stream) {
-    if (!process_parsing(message_stream)) return 0;
+    if (!process_parsing(message_stream)) return nullptr;
 
     return ChatMessage::pointer(new HumanChatMessage(sender_id, time));
 }

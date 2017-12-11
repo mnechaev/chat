@@ -27,7 +27,7 @@ void ChatServer::send_to_all(ChatMessage::pointer message) {
 }
 
 
-void ChatServer::send_to_single(std::string client_id, ChatMessage::pointer message) {
+void ChatServer::send_to_single(const std::string &client_id, ChatMessage::pointer message) {
     for(auto it = connections.begin(); it != connections.end(); ++it) {
         ChatUserConnection::pointer user_connection = it.base()->get()->shared_from_this();
         if (user_connection->client_id() == client_id) {
@@ -65,7 +65,7 @@ void ChatServer::handle_accept(ChatUserConnection::pointer new_connection,  cons
 
 void ChatServer::on_server_chat_message(ChatUserConnection::pointer connection, ChatMessage::pointer message) {
     HumanChatMessage *human_message = dynamic_cast<HumanChatMessage *>(message.get());
-    if (human_message != 0) {
+    if (human_message != nullptr) {
         human_message->update_time(time(0));
     }
 

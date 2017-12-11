@@ -6,7 +6,8 @@
 
 class PrivateChatMessage : public HumanChatMessage {
 public:
-    PrivateChatMessage(std::string sender_id, time_t time, std::string receiver_id, std::string body);
+    PrivateChatMessage(const std::string &sender_id, time_t time, const std::string &receiver_id,
+                       const std::string &body);
 
     int type() const;
     std::string receiver_id() const;

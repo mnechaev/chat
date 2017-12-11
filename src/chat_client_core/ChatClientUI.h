@@ -23,7 +23,7 @@ private:
     void on_connected(ChatClient * chat_client);
     void on_not_connected();
     void on_connection_lost();
-    void on_data_received(std::string data);
+    void on_data_received(const std::string &data);
     void on_message_received(ChatMessage::pointer message);
 
     void handle_user_list(const UserListMessage &message);
@@ -32,7 +32,7 @@ private:
     void handle_user_input_accept(const boost::system::error_code &error, std::size_t length);
 
     void show_commands();
-    void process_user_command(std::string command);
+    void process_user_command(const std::string &command);
 
 };
 

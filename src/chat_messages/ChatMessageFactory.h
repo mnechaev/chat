@@ -22,18 +22,18 @@ public:
         return ChatMessageParser::pointer(new ChatMessageParser());
     }
 
-    static ChatMessage::pointer parse(std::string message) {
+    static ChatMessage::pointer parse(const std::string &message) {
         std::istringstream iss(message);
 
         std::string prefix_data;
         iss >> prefix_data;
 
         if (prefix_data != ChatMessage::prefix) {
-            return 0;
+            return nullptr;
         }
 
         if (iss.eof()) {
-            return 0;
+            return nullptr;
         }
 
         int msg_type_data;

@@ -6,7 +6,7 @@
 
 class HumanChatMessage : public ChatMessage {
 public:
-    HumanChatMessage(std::string sender_id, time_t time);
+    HumanChatMessage(const std::string &sender_id, time_t time);
 
     void update_time(time_t time);
     time_t get_time() const;

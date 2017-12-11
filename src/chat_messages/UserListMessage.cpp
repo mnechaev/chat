@@ -23,7 +23,7 @@ UserListMessageParser::UserListMessageParser():ChatMessageParser() {
 }
 
 ChatMessage::pointer UserListMessageParser::parse(std::istringstream &message_stream) {
-    if (!process_parsing(message_stream)) return 0;
+    if (!process_parsing(message_stream)) return nullptr;
 
     return ChatMessage::pointer(new UserListMessage(user_list));
 }
